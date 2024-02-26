@@ -47,8 +47,8 @@ Description : API Usage.
     <script>
         // Function to fetch and display students
         async function fetchStudents() {
-           try{
-            const response = await fetch('https://65dce5c4e7edadead7ed123a.mockapi.io/STUDENTS');
+    try {
+        const response = await fetch('https://65dce5c4e7edadead7ed123a.mockapi.io/STUDENTS');
         const students = await response.json();
 
         const studentList = document.getElementById('studentList');
@@ -59,29 +59,29 @@ Description : API Usage.
             listItem.textContent = student.name;
             listItem.onclick = () => fetchCourses(student.id);
             studentList.appendChild(listItem);
-           } )
-        } catch (error){
-            console.error('Error fetching students:', error);
-        }
+        });
+    } catch (error) {
+        console.error('Error fetching students:', error);
     }
+}
         // Function to fetch and display courses for a student
         async function fetchCourses(studentId) {
-            try {
-            const response = await fetch(`https://65dce5c4e7edadead7ed123a.mockapi.io/STUDENTS/3/COURSES`);
-            const courses = await response.json();
+    try {
+        const response = await fetch(`https://65dce5c4e7edadead7ed123a.mockapi.io/STUDENTS/${studentId}/COURSES`);
+        const courses = await response.json();
 
-            const courseList = document.getElementById('courseList');
-            courseList.innerHTML = ''; // Clear existing list
+        const courseList = document.getElementById('courseList');
+        courseList.innerHTML = ''; // Clear existing list
 
-            courses.forEach(course => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${course.name} - ${course.unit}`;
-                courseList.appendChild(listItem);
-            });
-        } catch (error) {
-            console.error('Error fetching courses:', error);
-        }
+        courses.forEach(course => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${course.name} (Unit: ${course.unit})`;
+            courseList.appendChild(listItem);
+        });
+    } catch (error) {
+        console.error('Error fetching courses:', error);
     }
+}
             
 
         // Fetch students on window load
